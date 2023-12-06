@@ -35,7 +35,7 @@ app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-let currentUserId = 1;
+let currentUserId = 5;
 
 let users = []
 
