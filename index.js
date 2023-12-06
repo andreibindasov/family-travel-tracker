@@ -46,17 +46,31 @@ async function checkVisisted() {
     [currentUserId]
   );
   let countries = [];
-  result.rows.forEach((country) => {
-    countries.push(country.country_code);
-  });
+
+  if (result.rows){
+    result.rows.forEach((country) => {
+      countries.push(country.country_code);
+    })
+  }
+  
   return countries;
 }
 
 async function getCurrentUser() {
   const result = await db.query("SELECT * FROM users;")
-  users = result.rows
+  
+  if (result.rows) {
+    users = result.rows
+    return users.find((user) => user.id == currentUserId)
+  } else {
+    return {
+      id: null,
+      name: NaN,
+      color: 'black'
+    }
+  }
+  
 
-  return users.find((user) => user.id == currentUserId)
 }
 
 app.get("/", async (req, res) => {
